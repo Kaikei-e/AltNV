@@ -1,5 +1,15 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/core";
+  
+  // Import our new components
+  import Container from "$lib/components/layout/Container.svelte";
+  import ThemeToggle from "$lib/components/layout/ThemeToggle.svelte";
+  import Card from "$lib/components/base/Card.svelte";
+  import Button from "$lib/components/base/Button.svelte";
+  import Link from "$lib/components/base/Link.svelte";
+  import Heading from "$lib/components/typography/Heading.svelte";
+  import Paragraph from "$lib/components/typography/Paragraph.svelte";
+  import GradientText from "$lib/components/typography/GradientText.svelte";
 
   let name = $state("");
   let greetMsg = $state("");
@@ -11,146 +21,197 @@
   }
 </script>
 
-<main class="container">
-  <h1>Welcome to Tauri + Svelte</h1>
+<!-- Theme Toggle Button -->
+<ThemeToggle />
 
-  <div class="row">
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo vite" alt="Vite Logo" />
-    </a>
-    <a href="https://tauri.app" target="_blank">
-      <img src="/tauri.svg" class="logo tauri" alt="Tauri Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank">
-      <img src="/svelte.svg" class="logo svelte-kit" alt="SvelteKit Logo" />
-    </a>
-  </div>
-  <p>Click on the Tauri, Vite, and SvelteKit logos to learn more.</p>
+<Container class="min-h-screen py-16">
+  <main class="flex flex-col items-center text-center space-y-12">
+    
+    <!-- Hero Section -->
+    <div class="space-y-6">
+      <Heading level={1}>
+        Welcome to <GradientText>Alt-NV</GradientText>
+      </Heading>
+      
+      <Paragraph size="lg" class="max-w-2xl">
+        A modern Tauri + SvelteKit application featuring the Alt-Paper theme design system. 
+        Clean, newspaper-inspired aesthetics with beautiful typography and responsive layouts.
+      </Paragraph>
+    </div>
 
-  <form class="row" onsubmit={greet}>
-    <input id="greet-input" placeholder="Enter a name..." bind:value={name} />
-    <button type="submit">Greet</button>
-  </form>
-  <p>{greetMsg}</p>
-</main>
+    <!-- Logo Grid -->
+    <div class="flex items-center justify-center gap-8 flex-wrap">
+      <Link href="https://vite.dev" external class="logo-link">
+        <img src="/vite.svg" class="logo vite" alt="Vite Logo" />
+      </Link>
+      <Link href="https://tauri.app" external class="logo-link">
+        <img src="/tauri.svg" class="logo tauri" alt="Tauri Logo" />
+      </Link>
+      <Link href="https://svelte.dev" external class="logo-link">
+        <img src="/svelte.svg" class="logo svelte-kit" alt="SvelteKit Logo" />
+      </Link>
+    </div>
+
+    <!-- Interactive Demo -->
+    <Card class="max-w-md w-full space-y-6">
+      <Heading level={3}>Interactive Demo</Heading>
+      
+      <form onsubmit={greet} class="space-y-4">
+        <div>
+          <input 
+            id="greet-input" 
+            placeholder="Enter a name..." 
+            bind:value={name}
+            class="w-full px-4 py-2 border-2 transition-colors duration-default focus:outline-none input-alt-paper"
+            style="
+              border-radius: 0;
+              border-color: var(--surface-border);
+              background-color: var(--surface-bg);
+              color: var(--text-primary);
+            "
+          />
+        </div>
+        
+        <Button type="submit" variant="accent" class="w-full">
+          Greet
+        </Button>
+      </form>
+      
+      {#if greetMsg}
+        <div class="p-4 border" style="background-color: var(--surface-hover); border-color: var(--alt-primary);">
+          <Paragraph variant="primary">{greetMsg}</Paragraph>
+        </div>
+      {/if}
+    </Card>
+
+    <!-- Features Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl mt-12">
+      
+      <Card hover={false} padding="md" class="text-left">
+        <Heading level={4} class="mb-3">🎨 Theme System</Heading>
+        <Paragraph size="sm">
+          Three beautiful themes: Vaporwave (neon cyber), Liquid Beige (earthy luxury), 
+          and Alt-Paper (clean newspaper). Click the theme toggle to switch between them.
+        </Paragraph>
+      </Card>
+
+      <Card hover={false} padding="md" class="text-left">
+        <Heading level={4} class="mb-3">📱 Responsive</Heading>
+        <Paragraph size="sm">
+          Mobile-first responsive design with fluid typography scaling. 
+          Beautiful on desktop, tablet, and mobile devices.
+        </Paragraph>
+      </Card>
+
+      <Card hover={false} padding="md" class="text-left">
+        <Heading level={4} class="mb-3">♿ Accessible</Heading>
+        <Paragraph size="sm">
+          Built with accessibility in mind. Proper focus management, 
+          semantic HTML, and reduced motion support.
+        </Paragraph>
+      </Card>
+
+    </div>
+
+    <!-- Typography Showcase -->
+    <div class="w-full max-w-2xl space-y-8 mt-16">
+      <Heading level={2}>Typography Showcase</Heading>
+      
+      <div class="space-y-4 text-left">
+        <Heading level={1}>Heading Level 1</Heading>
+        <Heading level={2}>Heading Level 2</Heading>
+        <Heading level={3}>Heading Level 3</Heading>
+        <Heading level={4}>Heading Level 4</Heading>
+        <Heading level={5}>Heading Level 5</Heading>
+        <Heading level={6}>Heading Level 6</Heading>
+      </div>
+
+      <div class="space-y-4 text-left">
+        <Paragraph variant="primary">
+          Primary paragraph text with excellent readability. 
+          The Alt-Paper theme uses serif fonts for a newspaper-like aesthetic.
+        </Paragraph>
+        
+        <Paragraph variant="secondary">
+          Secondary paragraph text is slightly muted but still highly readable.
+          Perfect for supporting content and descriptions.
+        </Paragraph>
+        
+        <Paragraph variant="muted" size="sm">
+          Muted text in smaller size for footnotes, captions, and metadata.
+        </Paragraph>
+      </div>
+
+      <div class="space-y-2">
+        <Paragraph>
+          Links are styled with underlines: <Link href="https://github.com">GitHub</Link>, 
+          <Link href="https://svelte.dev">Svelte</Link>, and 
+          <Link href="https://tailwindcss.com">Tailwind CSS</Link>.
+        </Paragraph>
+      </div>
+    </div>
+
+    <!-- Button Showcase -->
+    <div class="space-y-6">
+      <Heading level={2}>Button Components</Heading>
+      
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <Button variant="primary" size="sm">Primary Small</Button>
+        <Button variant="primary" size="md">Primary Medium</Button>
+        <Button variant="primary" size="lg">Primary Large</Button>
+      </div>
+      
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <Button variant="accent" size="sm">Accent Small</Button>
+        <Button variant="accent" size="md">Accent Medium</Button>
+        <Button variant="accent" size="lg">Accent Large</Button>
+      </div>
+      
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <Button variant="ghost" size="sm">Ghost Small</Button>
+        <Button variant="ghost" size="md">Ghost Medium</Button>
+        <Button variant="ghost" size="lg">Ghost Large</Button>
+      </div>
+    </div>
+
+  </main>
+</Container>
 
 <style>
-.logo.vite:hover {
-  filter: drop-shadow(0 0 2em #747bff);
-}
-
-.logo.svelte-kit:hover {
-  filter: drop-shadow(0 0 2em #ff3e00);
-}
-
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
-  color: #0f0f0f;
-  background-color: #f6f6f6;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-.container {
-  margin: 0;
-  padding-top: 10vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: 0.75s;
-}
-
-.logo.tauri:hover {
-  filter: drop-shadow(0 0 2em #24c8db);
-}
-
-.row {
-  display: flex;
-  justify-content: center;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-h1 {
-  text-align: center;
-}
-
-input,
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  color: #0f0f0f;
-  background-color: #ffffff;
-  transition: border-color 0.25s;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-}
-
-button {
-  cursor: pointer;
-}
-
-button:hover {
-  border-color: #396cd8;
-}
-button:active {
-  border-color: #396cd8;
-  background-color: #e8e8e8;
-}
-
-input,
-button {
-  outline: none;
-}
-
-#greet-input {
-  margin-right: 5px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #f6f6f6;
-    background-color: #2f2f2f;
+  .logo {
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: 0.75s;
   }
 
-  a:hover {
-    color: #24c8db;
+  .logo.vite:hover {
+    filter: drop-shadow(0 0 2em #747bff);
   }
 
-  input,
-  button {
-    color: #ffffff;
-    background-color: #0f0f0f98;
+  .logo.svelte-kit:hover {
+    filter: drop-shadow(0 0 2em #ff3e00);
   }
-  button:active {
-    background-color: #0f0f0f69;
-  }
-}
 
+  .logo.tauri:hover {
+    filter: drop-shadow(0 0 2em #24c8db);
+  }
+
+  /* Logo link hover styles are handled by the Link component */
+
+  /* Alt-paper theme input styling */
+  .input-alt-paper {
+    font-family: var(--font-primary);
+    line-height: 1.4;
+  }
+
+  .input-alt-paper:focus {
+    box-shadow: var(--shadow-sm);
+    border-color: var(--alt-primary) !important;
+  }
+  
+  .input-alt-paper::placeholder {
+    color: var(--text-muted);
+    opacity: 1;
+  }
 </style>
