@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
 // Theme types
-export type Theme = 'vaporwave' | 'liquid-beige' | 'alt-paper';
+export type Theme = 'alt-paper' | 'vaporwave' | 'liquid-beige';
 
 // Theme configuration
 export interface ThemeConfig {
@@ -48,19 +48,19 @@ const DEFAULT_THEME: Theme = 'alt-paper';
 // Get initial theme from localStorage or system preference
 function getInitialTheme(): Theme {
   if (!browser) return DEFAULT_THEME;
-  
+
   try {
     // Check localStorage first
     const stored = localStorage.getItem('alt-nv-theme');
     if (stored && Object.keys(THEMES).includes(stored)) {
       return stored as Theme;
     }
-    
+
     // Check system preference (detect dark mode)
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       return 'vaporwave'; // Use vaporwave for dark preference
     }
-    
+
     return DEFAULT_THEME;
   } catch (error) {
     console.warn('Failed to get initial theme:', error);
@@ -71,19 +71,19 @@ function getInitialTheme(): Theme {
 // Create theme store
 function createThemeStore() {
   const { subscribe, set, update } = writable<Theme>(getInitialTheme());
-  
+
   return {
     subscribe,
-    
+
     // Set theme
     setTheme: (theme: Theme) => {
       if (!Object.keys(THEMES).includes(theme)) {
         console.warn(`Invalid theme: ${theme}`);
         return;
       }
-      
+
       set(theme);
-      
+
       // Persist to localStorage
       if (browser) {
         try {
@@ -93,7 +93,7 @@ function createThemeStore() {
         }
       }
     },
-    
+
     // Toggle between themes
     toggleTheme: () => {
       update(currentTheme => {
@@ -101,7 +101,7 @@ function createThemeStore() {
         const currentIndex = themeKeys.indexOf(currentTheme);
         const nextIndex = (currentIndex + 1) % themeKeys.length;
         const nextTheme = themeKeys[nextIndex];
-        
+
         // Persist to localStorage
         if (browser) {
           try {
@@ -110,15 +110,15 @@ function createThemeStore() {
             console.warn('Failed to persist theme:', error);
           }
         }
-        
+
         return nextTheme;
       });
     },
-    
+
     // Reset to default theme
     resetTheme: () => {
       set(DEFAULT_THEME);
-      
+
       if (browser) {
         try {
           localStorage.removeItem('alt-nv-theme');
@@ -127,7 +127,7 @@ function createThemeStore() {
         }
       }
     },
-    
+
     // Get current theme config
     getConfig: (theme: Theme): ThemeConfig => THEMES[theme],
   };
@@ -138,15 +138,15 @@ export const themeStore = createThemeStore();
 // Theme application helper
 export function applyTheme(theme: Theme) {
   if (!browser) return;
-  
+
   try {
     // Update data-style attribute on body
     document.body.setAttribute('data-style', theme);
-    
+
     // Update CSS custom properties dynamically if needed
     const themeConfig = THEMES[theme];
     const root = document.documentElement;
-    
+
     // Apply theme-specific CSS variables
     switch (theme) {
       case 'vaporwave':
@@ -165,12 +165,12 @@ export function applyTheme(theme: Theme) {
         root.style.setProperty('--alt-tertiary', '#808080');
         break;
     }
-    
+
     // Dispatch custom event for theme change
-    window.dispatchEvent(new CustomEvent('themechange', { 
-      detail: { theme, config: themeConfig } 
+    window.dispatchEvent(new CustomEvent('themechange', {
+      detail: { theme, config: themeConfig }
     }));
-    
+
   } catch (error) {
     console.warn('Failed to apply theme:', error);
   }
@@ -181,7 +181,7 @@ if (browser) {
   themeStore.subscribe(theme => {
     applyTheme(theme);
   });
-  
+
   // Listen for system theme changes
   const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
   darkModeQuery.addEventListener('change', (e) => {
