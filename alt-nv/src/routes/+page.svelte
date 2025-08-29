@@ -1,8 +1,7 @@
 <script lang="ts">
-  // Import our new components
   import Container from "$lib/components/layout/Container.svelte";
-  import ThemeToggle from "$lib/components/layout/ThemeToggle.svelte";
   import Button from "$lib/components/base/Button.svelte";
+  import { goto } from "$app/navigation";
 </script>
 
 <Container class="min-h-screen p-16" size="full">
@@ -14,7 +13,12 @@
         Alt-NV is a tool for managing and reading your favourite RSS feeds. It
         is a work in progress and will be updated regularly.
       </p>
-      <Button class="mt-8">Get Started</Button>
+      <Button
+        size="lg"
+        onclick={() => {
+          goto("/home");
+        }}>Get Started</Button
+      >
     </div>
   </main>
 </Container>
