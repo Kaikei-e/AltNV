@@ -1,6 +1,4 @@
 <script lang="ts">
-  import Card from "$lib/components/base/Card.svelte";
-
   // Mock data for dashboard
   const feedStats = {
     totalFeeds: 12,
@@ -69,19 +67,22 @@
 
 <main class="min-h-screen p-6" style="background: var(--app-bg);">
   <!-- Header -->
-  <header class="mb-8 p-8">
+  <header class="mb-8 max-w-[1400px] mx-auto px-6">
+    <div class="eyebrow">Dashboard</div>
     <h3
-      class="text-2xl font-bold mb-2"
+      class="text-3xl font-bold"
       style="color: var(--text-primary); font-family: var(--font-display);"
     >
       Alt-NV Home
     </h3>
+    <p class="deck">Your personalized RSS feed dashboard</p>
   </header>
 
   <!-- Dashboard Grid -->
   <div class="dashboard-grid">
     <!-- Feed Statistics Card -->
-    <Card class="stats-card" hover={true}>
+    <div class="panel stats-card">
+      <div class="eyebrow">Overview</div>
       <h3 class="card-title">Feed Statistics</h3>
       <div class="stats-grid">
         <div class="stat-item">
@@ -96,10 +97,11 @@
           <div class="stat-update">Last updated: {feedStats.lastUpdate}</div>
         </div>
       </div>
-    </Card>
+    </div>
 
     <!-- Latest Articles Card -->
-    <Card class="articles-card" hover={true}>
+    <div class="panel articles-card">
+      <div class="eyebrow">Recent</div>
       <h3 class="card-title">Latest Articles</h3>
       <div class="articles-list">
         {#each latestArticles as article}
@@ -113,10 +115,11 @@
           </div>
         {/each}
       </div>
-    </Card>
+    </div>
 
     <!-- Favorite Feeds Card -->
-    <Card class="feeds-card" hover={true}>
+    <div class="panel feeds-card">
+      <div class="eyebrow">Favorites</div>
       <h3 class="card-title">Favorite Feeds</h3>
       <div class="feeds-list">
         {#each favoriteFeeds as feed}
@@ -125,14 +128,15 @@
               <div class="feed-name">{feed.name}</div>
               <div class="feed-category">{feed.category}</div>
             </div>
-            <div class="feed-count">{feed.articles}</div>
+            <div class="badge">{feed.articles}</div>
           </div>
         {/each}
       </div>
-    </Card>
+    </div>
 
     <!-- Today's Summary Card -->
-    <Card class="summary-card" hover={true}>
+    <div class="panel summary-card">
+      <div class="eyebrow">Today</div>
       <h3 class="card-title">Today's Summary</h3>
       <div class="summary-stats">
         <div class="summary-item">
@@ -148,10 +152,11 @@
           <div class="summary-value">{todayHighlight.topCategory}</div>
         </div>
       </div>
-    </Card>
+    </div>
 
     <!-- Category Statistics Card -->
-    <Card class="category-card" hover={true}>
+    <div class="panel category-card">
+      <div class="eyebrow">Analytics</div>
       <h3 class="card-title">Category Statistics</h3>
       <div class="category-list">
         {#each categoryStats as category}
@@ -160,19 +165,17 @@
               <span class="category-name">{category.name}</span>
               <span class="category-count">{category.count}件</span>
             </div>
-            <div class="category-bar">
-              <div
-                class="category-progress"
-                style="width: {category.percentage}%"
-              ></div>
+            <div class="progress">
+              <span style="width: {category.percentage}%"></span>
             </div>
           </div>
         {/each}
       </div>
-    </Card>
+    </div>
 
     <!-- Quick Actions Card -->
-    <Card class="actions-card" hover={true}>
+    <div class="panel actions-card">
+      <div class="eyebrow">Actions</div>
       <h3 class="card-title">Quick Actions</h3>
       <div class="actions-grid">
         <button class="btn-primary action-btn">
@@ -192,7 +195,7 @@
           Export
         </button>
       </div>
-    </Card>
+    </div>
   </div>
 </main>
 
@@ -364,16 +367,6 @@
     letter-spacing: 0.5px;
   }
 
-  .feed-count {
-    background: var(--alt-primary);
-    color: white;
-    padding: var(--space-1) var(--space-2);
-    font-size: var(--text-xs);
-    font-weight: 700;
-    min-width: 24px;
-    text-align: center;
-  }
-
   /* Summary Card Styles */
   .summary-stats {
     display: flex;
@@ -431,18 +424,6 @@
   .category-count {
     font-size: var(--text-sm);
     color: var(--text-muted);
-  }
-
-  .category-bar {
-    height: 4px;
-    background: var(--surface-border);
-    position: relative;
-  }
-
-  .category-progress {
-    height: 100%;
-    background: var(--alt-primary);
-    transition: width var(--transition-smooth) ease;
   }
 
   /* Actions Card Styles */
