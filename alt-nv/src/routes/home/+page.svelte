@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
+
   // Mock data for dashboard
   const feedStats = {
     totalFeeds: 12,
@@ -178,7 +180,12 @@
       <div class="eyebrow">Actions</div>
       <h3 class="card-title">Quick Actions</h3>
       <div class="actions-grid">
-        <button class="btn-primary action-btn">
+        <button
+          class="btn-primary action-btn"
+          onclick={() => {
+            goto("/register");
+          }}
+        >
           <span class="action-icon">+</span>
           Add New Feed
         </button>
