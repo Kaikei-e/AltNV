@@ -4,9 +4,7 @@
     "npm:@sveltejs/adapter-static@^3.0.6": "3.0.9_@sveltejs+kit@2.36.2__@sveltejs+vite-plugin-svelte@5.1.1___svelte@5.38.3____acorn@8.15.0___vite@6.3.5____picomatch@4.0.3__svelte@5.38.3___acorn@8.15.0__vite@6.3.5___picomatch@4.0.3__acorn@8.15.0_@sveltejs+vite-plugin-svelte@5.1.1__svelte@5.38.3___acorn@8.15.0__vite@6.3.5___picomatch@4.0.3_svelte@5.38.3__acorn@8.15.0_vite@6.3.5__picomatch@4.0.3",
     "npm:@sveltejs/kit@^2.9.0": "2.36.2_@sveltejs+vite-plugin-svelte@5.1.1__svelte@5.38.3___acorn@8.15.0__vite@6.3.5___picomatch@4.0.3_svelte@5.38.3__acorn@8.15.0_vite@6.3.5__picomatch@4.0.3_acorn@8.15.0",
     "npm:@sveltejs/vite-plugin-svelte@5": "5.1.1_svelte@5.38.3__acorn@8.15.0_vite@6.3.5__picomatch@4.0.3",
-    "npm:@tauri-apps/api@2": "2.8.0",
     "npm:@tauri-apps/cli@2": "2.8.3",
-    "npm:@tauri-apps/plugin-opener@2": "2.5.0",
     "npm:svelte-check@4": "4.3.1_svelte@5.38.3__acorn@8.15.0_typescript@5.6.3",
     "npm:svelte@5": "5.38.3_acorn@8.15.0",
     "npm:typescript@~5.6.2": "5.6.3",
@@ -332,9 +330,6 @@
         "vitefu"
       ]
     },
-    "@tauri-apps/api@2.8.0": {
-      "integrity": "sha512-ga7zdhbS2GXOMTIZRT0mYjKJtR9fivsXzsyq5U3vjDL0s6DTMwYRm0UHNjzTY5dh4+LSC68Sm/7WEiimbQNYlw=="
-    },
     "@tauri-apps/cli-darwin-arm64@2.8.3": {
       "integrity": "sha512-+X/DjTlH9ZLT9kWrU+Mk9TSu8vVpv30GgfAOKUxlCQobaRSOzN0cxgZfRcgWaDLu80/gWsJ7Ktk9jLfJ9h9CVA==",
       "os": ["darwin"],
@@ -406,12 +401,6 @@
         "@tauri-apps/cli-win32-x64-msvc"
       ],
       "bin": true
-    },
-    "@tauri-apps/plugin-opener@2.5.0": {
-      "integrity": "sha512-B0LShOYae4CZjN8leiNDbnfjSrTwoZakqKaWpfoH6nXiJwt6Rgj6RnVIffG3DoJiKsffRhMkjmBV9VeilSb4TA==",
-      "dependencies": [
-        "@tauri-apps/api"
-      ]
     },
     "@types/cookie@0.6.0": {
       "integrity": "sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA=="
@@ -687,11 +676,18 @@
         "npm:@sveltejs/adapter-static@^3.0.6",
         "npm:@sveltejs/kit@^2.9.0",
         "npm:@sveltejs/vite-plugin-svelte@5",
+        "npm:@tailwindcss/postcss@^4.1.12",
+        "npm:@tailwindcss/typography@~0.5.16",
         "npm:@tauri-apps/api@2",
         "npm:@tauri-apps/cli@2",
-        "npm:@tauri-apps/plugin-opener@2",
+        "npm:@tauri-apps/plugin-http@^2.5.2",
+        "npm:@tauri-apps/plugin-opener@^2.5.0",
+        "npm:@tauri-apps/plugin-sql@^2.3.0",
+        "npm:autoprefixer@^10.4.21",
+        "npm:postcss@^8.5.6",
         "npm:svelte-check@4",
         "npm:svelte@5",
+        "npm:tailwindcss@^4.1.12",
         "npm:typescript@~5.6.2",
         "npm:vite@^6.0.3"
       ]
